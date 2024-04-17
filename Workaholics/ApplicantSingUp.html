@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="image/FeviconLogo.svg">
+    <title>Workaholics</title>
+    <script src="https://kit.fontawesome.com/52ca9e0df4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">LOGIN</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="signup.html">SIGNUP</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- form section start -->
+    <section class="Signup">
+        <div class="container">
+            <form class="row Signupform  g-3  justify-content-center m-4  ">
+                <div class="col-lg-5 col-md-6 col-sm-8 p-5  wrap">
+                    <div class="col-12">
+                        <h1 class="h1 text-center">SignUp</h1>
+
+                        <div class="Applicant" id="Applicant">
+                            <div class="row inst">
+                                <div class="mar">
+                                    <input type="text" placeholder="Name" name="name" id="name" required>
+                                </div>
+
+                                <div class="mar">
+                                    <input type="email" placeholder="Email" name="email" id="email" required>
+                                </div>
+
+                                <div class="mar pas">
+                                    <span id="eye" class="eye" onclick="myFunction()"></span>
+                                    <input type="password" placeholder="Enter Password" name="password" id="password"
+                                        required>
+                                    <div class="mar">
+                                        <input type="text" name="bio" id="bio" placeholder="Bio (upto 250 Words)">
+                                    </div>
+                                    <div class="mar ">
+                                        <input type="tel" name="phone" id="contact" required
+                                            placeholder="Contact +917894561231" />
+                                    </div>
+                                </div>
+
+
+                                <div class="col-6 mar">
+                                    <label for="InstitutionName">Institution Name </label>
+                                    <input type="text" name="InstitutionName">
+                                </div>
+                                <div class="col-3 mar">
+                                    <label for="StartYear">Start Year</label>
+                                    <input type="text" name="StartYear">
+                                </div>
+                                <div class="col-3 mar">
+                                    <label for="EndYear">End Year</label>
+                                    <input type="text" name="EndYear">
+                                </div>
+                            </div>
+                            <div class="col-12 text-center mt-3 mt-sm-4">
+                                <button class="btn btn-primary w-100" type="submit">ADD ANOTHER INTITUTION
+                                    DETAILS</button>
+                            </div>
+                            <div class="mar ">
+                                <label for="Skills">Skills</label>
+                                <input type="text" name="Skills">
+                                <p>Please enter to add skills</p>
+                            </div>
+                            Upload file
+                            <div class="row inst">
+
+                                <div class="col-3 mar">
+
+                                    <input type="file" name="File" class="choose" title="Add a File">
+                                </div>
+                                <div class="col-6 mar">
+                                    <input type="text" name="FileName">
+                                </div>
+                                <div class="col-3 mar">
+                                    <button class="Upload" type="submit" name="Upload" value="">Submit</button>
+                                </div>
+                            </div>
+                            <div class="row inst">
+
+                                <div class="col-3 mar">
+
+                                    <input type="file" name="File" class="choose" title="Add a File">
+                                </div>
+                                <div class="col-6 mar">
+                                    <input type="text" name="FileName">
+                                </div>
+                                <div class="col-12 text-center mt-3 mt-sm-4">
+                                    <button class="btn btn-primary w-100" type="submit" onclick="signUp(event)">SIGNUP</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </section>
+    <!-- form section End -->
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        const signUp = (e) => {
+            e.preventDefault();
+            let obj = {
+
+                bio: document.getElementById('bio').value,
+                contactNumber: document.getElementById('contact').value,
+                // education: document.getElementById('').value,
+                email: document.getElementById('email').value,
+                name: document.getElementById('name').value,
+                password: document.getElementById('password').value,
+                // profile: document.getElementById('password').value,
+                // resume: document.getElementById('password').value,
+                // skills: document.getElementById('password').value,
+                type: "applicant",
+            }
+
+
+
+
+            fetch('http://localhost:4444/auth/signup', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(obj)
+            }).then(y => y.json()).then(y => {
+                if (y.type) {
+                    location.href = 'ApplicantLogin.html'
+                }
+            })
+
+
+        }
+
+        const myFunction = () => {
+            let types = document.getElementById('password');
+            if (types.type == "password") {
+                types.type = 'text'
+
+                document.getElementById("eye").classList.remove('eye');
+                document.getElementById("eye").classList.add('eye1');
+
+            }
+            else {
+                types.type = 'password'
+                document.getElementById("eye").classList.add('eye');
+                document.getElementById("eye").classList.remove('eye1');
+            }
+        }
+    </script>
+
+</body>
+
+</html>

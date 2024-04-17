@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="image/FeviconLogo.svg">
+    <title>Workaholics</title>
+    <script src="https://kit.fontawesome.com/52ca9e0df4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body onload="profileData()">
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link " aria-current="page" href="index.html">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="addJobs.html"> ADD JOBS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="myjobs.html">MY JOBS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">EMPLOYEES</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">PROFILE</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">LOGOUT</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- form section start -->
+    <section class="Signup">
+        <div class="container">
+            <form class="row Signupform  g-3  justify-content-center m-4  ">
+                <div class="col-lg-5 col-md-6 col-sm-8 p-5  wrap">
+                    <div class="col-12">
+                        <h1 class="h1 text-center">Profile</h1>
+
+
+                        <div class="mar">
+
+                            <input type="text" placeholder="Name" name="name" id="name" required>
+
+                        </div>
+
+
+
+
+                        <div class="mar">
+                            <input type="text" name="bio" id="bio" placeholder="Bio (upto 250 Words)">
+                        </div>
+                        <div class="mar num">
+                            <input type="tel" name="phone" required id="contact" placeholder="Contact"/>
+                        </div>
+
+
+
+
+                        <div class="col-12 text-center mt-3 mt-sm-4">
+                            <button class="btn btn-primary w-100" type="submit" onclick="updateProfile(event)">Update
+                                Details</button>
+                        </div>
+                    </div>
+
+            </form>
+
+        </div>
+
+    </section>
+    <!-- form section End -->
+
+    <!-- <script src="js/app.js"></script> -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        let t = JSON.parse(localStorage.getItem("token")).token;
+        const profileData = () => {
+            fetch("http://localhost:4444/api/user", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${t}`,
+                },
+            })
+                .then((y) => y.json())
+                .then((y) => {
+                    console.log(y);
+                    obj = y;
+                    display(y);
+
+                });
+        };
+
+        const display = (y) => {
+            document.getElementById('name').value = y.name;
+            document.getElementById('bio').value = y.bio;
+            document.getElementById('contact').value = y.contactNumber;
+        }
+
+        let obj = {}
+
+        const updateProfile = (y) => {
+
+            y.preventDefault();
+
+            let update = {
+
+                name: document.getElementById('name').value,
+                _id: obj._id,
+                bio: document.getElementById('bio').value,
+            }
+
+            fetch('http://localhost:4444/api/user', {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${t}`
+                },
+                body: JSON.stringify(update)
+            }).then(y => y.json())
+                .then(y => {
+                    console.log(y);
+                })
+        }
+
+    </script>
+
+</body>
+
+</html>
