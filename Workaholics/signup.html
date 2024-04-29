@@ -15,7 +15,8 @@
     <header>
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html">Navbar</a>
+                <a class="navbar-brand" href="signup.html"><img src="image/Asset 2@4x-8.png" alt="" id="img"></a>
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -105,6 +106,7 @@
                 body: JSON.stringify(obj)
             }).then(y => y.json()).then(y => {
                 if (y.type) {
+                    console.log(y);
                     location.href = 'login.html'
                 }
             })
@@ -132,59 +134,3 @@
 </body>
 
 </html>
-<!-- <div class="Recruiter" id="Recruiter">
-
-        </div> -->
-<!-- <div class="Applicant" id="Applicant">
-            <div class="row inst">
-
-                <div class="col-6 mar">
-                    <label for="InstitutionName">Institution Name #2</label>
-                    <input type="text" name="InstitutionName">
-                </div>
-                <div class="col-3 mar">
-                    <label for="StartYear">Start Year</label>
-                    <input type="text" name="StartYear">
-                </div>
-                <div class="col-3 mar">
-                    <label for="EndYear">End Year</label>
-                    <input type="text" name="EndYear">
-                </div>
-            </div>
-            <div class="col-12 text-center mt-3 mt-sm-4">
-                <button class="btn btn-primary w-100" type="submit">ADD ANOTHER INTITUTION
-                    DETAILS</button>
-            </div>
-            <div class="mar ">
-                <label for="Skills">Skills</label>
-                <input type="text" name="Skills">
-                <p>Please enter to add skills</p>
-            </div>
-            Upload file
-            <div class="row inst">
-
-                <div class="col-3 mar">
-
-                    <input type="file" name="File" class="choose" title="Add a File">
-                </div>
-                <div class="col-6 mar">
-                    <input type="text" name="FileName">
-                </div>
-                <div class="col-3 mar">
-                    <button class="Upload" type="submit" name="Upload" value="">Submit</button>
-                </div>
-            </div>
-            <div class="row inst">
-
-                <div class="col-3 mar">
-
-                    <input type="file" name="File" class="choose" title="Add a File">
-                </div>
-                <div class="col-6 mar">
-                    <input type="text" name="FileName">
-                </div>
-                <div class="col-3 mar">
-                    <button class="Upload" type="submit" name="Upload" value="">Submit</button>
-                </div>
-            </div>
-        </div> -->
