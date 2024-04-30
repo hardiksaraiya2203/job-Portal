@@ -56,6 +56,7 @@ img {
 .nav-item{
   position: relative;
 }
+
 .nav-item::after{
   content: "";
   position: absolute;
@@ -73,7 +74,6 @@ img {
 .nav-link {
   color: #ffffff;
 }
-
 /* NAVBAR CSS End */
 
 /* banner section start */
@@ -717,14 +717,79 @@ section#display .container {
     border: 2px solid #ffffff;
     box-shadow: 6px 6px 10px #ebebeb, 1px 1px 10px rgba(255, 255, 255, 0.6);
 }
-.navbar #img{
-  width: 10%;
-  margin-left: 40px;
-}
-.navbar-brand{
-  width: 72%;
+
+
+
+
+
+
+.MyjobFilterModal .modal-dialog {
+  max-width: 650px;
 }
 
+.MyjobFilterModal input[type="checkbox"]{
+  margin: 12px 5px 10px;
+}
+
+.MyjobFilterModal .form-check-input:checked {
+  background-color: #6a38c2;
+  border-color: #6a38c2;
+  height: 1em;
+}
+.MyjobFilterModal .form-check{
+  padding-left: 0.8rem;
+}
+.MyjobFilterModal input[type="number"],.MyjobFilterModal select{
+    padding: 6px 12px;
+    border: 1px solid grey;
+    border-radius: 6px;
+    min-height: 45px;
+    color: black;
+    outline: none;
+    transition: 0.35s;
+    background-color: #fff;
+    border: 2px solid #ffffff;
+    box-shadow: 2px 2px 10px 4px #ebebeb, 1px 1px 10px rgba(255, 255, 255, 0.6);
+}
+.MyjobFilterModal input[type="number"]:focus,.MyjobFilterModal select:focus{
+  transform: scale(1.05);
+    box-shadow: 6px 6px 10px rgb(232 232 232), 1px 1px 10px rgba(255, 255, 255, 0.6), inset 2px 2px 10px rgb(220 220 220), inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+    border: none;
+}
+.MyjobFilterModal button.btn-primary{
+display: table;
+margin: auto;
+}
+.miniCardBtn .JobapplyBtn {
+  height: 180px;
+}
+
+.JobapplyModal textarea {
+  height: 200px;
+  width: 100%;
+  padding: 6px 12px;
+  border-radius: 6px;
+  min-height: 45px;
+  color: black;
+  outline: none;
+  transition: 0.35s;
+  background-color: #fff;
+  border: 2px solid #ffffff;
+  box-shadow: 2px 2px 10px 4px #ebebeb, 1px 1px 10px rgba(255, 255, 255, 0.6);
+}
+.JobapplyModal textarea:focus{
+  transform: scale(1.05);
+  box-shadow: 6px 6px 10px rgb(232 232 232), 1px 1px 10px rgba(255, 255, 255, 0.6), inset 2px 2px 10px rgb(220 220 220), inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+  border: none;
+}
+
+.navbar #img {
+  width: 100%;
+  margin-left: 40px;
+}
+.navbar-brand {
+  width: 10rem;
+}
 
 
 @media (max-width: 575.98px) { 

@@ -66,44 +66,69 @@
   </button>
 
   <!-- Modal -->
-  <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal fade MyjobFilterModal" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="Full%20Time" class="col-form-label">Full Time</label>
-              <input type="checkbox" name="Full%20Time" id="Full%20Time" value="Full%20Time">
+          <form class="container-fluid">
+
+            <div class="row mb-3 ">
+              <div class="col-sm-3">
+                <p class="my-2">Job Type</p>
+              </div>
+              <div class="col-sm-9 d-flex flex-wrap ">
+                <div class="form-check">
+                  <input class="form-check-input" name="Full%20Time" type="checkbox" value="Full%20Time"
+                    id="Full%20Time">
+                  <label class="col-form-label" for="Full%20Time">
+                    Full Time
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" name="Part%20Time" type="checkbox" value="Part%20Time"
+                    id="Part%20Time">
+                  <label class="col-form-label" for="Part%20Time">
+                    Part Time
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" name="Work%20From%20Home" type="checkbox" value="Work%20From%20Home"
+                    id="Work%20From%20Home">
+                  <label class="col-form-label" for="Work%20From%20Home">
+                    Work from Home
+                  </label>
+                </div>
+              </div>
             </div>
-            <div class="mb-3">
-              <label for="Part%20Time" class="col-form-label">Part Time</label>
-              <input type="checkbox" name="Part%20Time" id="Part%20Time" value="Part%20Time">
+            <div class="row mb-3">
+              <div class="col-sm-3">
+                <label for="maxSal" class="col-form-label mt-2">Salary</label>
+              </div>
+              <div class="col-sm-9">
+                <input type="number" id="maxSal">
+              </div>
             </div>
-            <div class="mb-3">
-              <label for="Work%20From%20Home" class="col-form-label">Work from Home</label>
-              <input type="checkbox" name="Work%20From%20Home" id="Work%20From%20Home" value="Work%20From%20Home">
-            </div>
-            <div class="mb-3">
-              <label for="maxSal" class="col-form-label">Salary</label>
-              <input type="number" id="maxSal">
-            </div>
-            <div class="mb-3">
-              <label for="duration" class="col-form-label">Duration</label>
-              <select name="duration" id="duration">
-                <option value="1">1 Year</option>
-                <option value="2">2 Years</option>
-                <option value="3">3 Years</option>
-            </select>
+            <div class="row mb-3">
+              <div class="col-sm-3">
+                <label for="duration" class="col-form-label mt-2">Duration</label>
+              </div>
+              <div class="col-sm-9">
+                <select name="duration" id="duration">
+                  <option value="1">1 Year</option>
+                  <option value="2">2 Years</option>
+                  <option value="3">3 Years</option>
+                </select>
+              </div>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="filterData(event)">Apply</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+            onclick="filterData(event)">Apply</button>
           <!-- <button type="button" class="btn btn-primary" >APPLY</button> -->
         </div>
       </div>
@@ -115,7 +140,7 @@
 
   </section>
 
-  
+
 
   <section class="cardApplications">
     <div class="container">
@@ -333,7 +358,7 @@
     };
 
 
-    
+
     const filterData = (e) => {
       e.preventDefault();
 
@@ -343,7 +368,7 @@
       let jobType3 = document.getElementById('Work%20From%20Home')
       let maxSal = document.getElementById('maxSal').value
       let duration = document.getElementById('duration').value
-      
+
       if (jobType1.checked) {
         baseUrl += ("jobType=" + jobType1.value + "&")
       }
@@ -353,13 +378,15 @@
       if (jobType3.checked) {
         baseUrl += ("jobType=" + jobType3.value + "&")
       }
-      if(maxSal>0){
-        baseUrl += ("salaryMax=" + maxSal + "&")
+      if (maxSal > 0) {
+        baseUrl +=  ("salaryMax=" + maxSal + "&")
+        console.log(baseUrl);
       }
-      if(duration>0){
-        baseUrl += ("salaryMax=" + duration)
+      if (duration > 0) {
+        baseUrl += ("duration=" + duration)
       }
-
+      // http://localhost:4444/api/jobs?myjobs=1&jobType=Full%20Time&jobType=Part%20Time&jobType=Work%20From%20Home&salaryMax=100&
+      // http://localhost:4444/api/jobs?myjobs=1&jobType=Full%20Time&jobType=Part%20Time&jobType=Work%20From%20Home&salaryMax=74000&duration=4
 
       fetch(`${baseUrl}`, {
         method: "GET",

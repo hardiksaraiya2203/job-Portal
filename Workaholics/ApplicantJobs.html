@@ -32,7 +32,7 @@
                         <li class="nav-item">
                             <a class="nav-link " href="ApplicantsApplication.html"> APPLICATIONS</a>
                         </li>
-                       
+
                         <li class="nav-item">
                             <a class="nav-link" href="profile.html">PROFILE</a>
                         </li>
@@ -207,7 +207,7 @@
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5 secH text-center w-100" id="exampleModalLabel">Something</h1>
+                  <h1 class="modal-title fs-5 secH text-center w-100" id="exampleModalLabel" id="SOP">Something</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -241,6 +241,7 @@
 
         const ApplyJobs = (index) => {
             let b = jobData[index];
+            // b[SOP] = document.getElementById('SOP').value;
             // obj1 = b;
             let c = b._id
             const url = 'http://localhost:4444/api/jobs/' + c + '/applications';
@@ -252,10 +253,12 @@
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${t}`,
                 },
+                // body: JSON.stringify(b)
             })
                 .then((y) => y.json())
                 .then((y) => {
                     alert(y.message)
+                    // console.log(b);
                 });
         };
 
