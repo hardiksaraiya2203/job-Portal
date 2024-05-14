@@ -302,7 +302,8 @@
       }).then(y => y.json())
         .then(y => {
           console.log(y);
-          window.location.href = 'myjobs.html';
+          // window.location.href = 'myjobs.html';
+          location.reload(true)
         })
     }
 
@@ -321,7 +322,8 @@
       }).then(y => y.json())
         .then(y => {
           console.log(y);
-          window.location.href = 'myjobs.html';
+          // window.location.href = 'myjobs.html';
+          location.reload(true)
         })
     }
 
@@ -379,14 +381,12 @@
         baseUrl += ("jobType=" + jobType3.value + "&")
       }
       if (maxSal > 0) {
-        baseUrl +=  ("salaryMax=" + maxSal + "&")
+        baseUrl += ("salaryMax=" + maxSal + "&")
         console.log(baseUrl);
       }
       if (duration > 0) {
         baseUrl += ("duration=" + duration)
       }
-      // http://localhost:4444/api/jobs?myjobs=1&jobType=Full%20Time&jobType=Part%20Time&jobType=Work%20From%20Home&salaryMax=100&
-      // http://localhost:4444/api/jobs?myjobs=1&jobType=Full%20Time&jobType=Part%20Time&jobType=Work%20From%20Home&salaryMax=74000&duration=4
 
       fetch(`${baseUrl}`, {
         method: "GET",
