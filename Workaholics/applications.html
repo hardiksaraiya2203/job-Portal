@@ -83,6 +83,7 @@
 
 
     const disApplicants = (y) => {
+      console.log(y);
       let d = y.map((value, index) => {
         return `<div class=" col-auto">
       <div class="row">
@@ -92,9 +93,9 @@
           <h4>${value.jobApplicant.name}</h4>
           <div><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
             class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-            <p><i class="fa-regular fa-circle-check"></i> <span>Applied on:</span> 4/10/2024</p>
-            <p><i class="fa-regular fa-circle-check"></i> <span>Education:</span> Unpad(2020-2024)</p>
-            <p><i class="fa-regular fa-circle-check"></i> <span>SOP:</span> Available</p>
+            <p><i class="fa-regular fa-circle-check"></i> <span>Applied on:</span> ${value.jobApplicant.dateOfApplication}</p>
+            <p><i class="fa-regular fa-circle-check"></i> <span>Education:</span> ${value.job.education.institutionName}</p>
+            <p><i class="fa-regular fa-circle-check"></i> <span>SOP:</span> ${value.jobApplicant.sop}</p>
             <button class="btn btn-success me-4" onclick="Status(${index})" value="shortlisted" type="submit">Shortlist</button> <button class="btn btn-danger" value="rejected" type="submit">Reject</button> <button value="accepted" type="submit" class="btn btn-primary" id="hidden">Accept</button>
             <button class="btn upload"><i class="fa-solid fa-cloud-arrow-down"></i> Download</button>
             </div>
@@ -107,35 +108,35 @@
 
 
 
-    let statusObj = {}
-    const Status = (index) => {
+    // let statusObj = {}
+    // const Status = (index) => {
 
-      statusObj = jobApplications[index]
+    //   statusObj = jobApplications[index]
 
-      statusObj.status = "shortlisted";
+    //   statusObj.status = "shortlisted";
 
-      let jobid = statusObj.jobId;
-      let dateOfApplications = statusObj.dateOfApplication
-      console.log(jobid);
-      console.log(statusObj);
+    //   let jobid = statusObj.jobId;
+    //   let dateOfApplications = statusObj.dateOfApplication
+    //   console.log(jobid);
+    //   console.log(statusObj);
 
-      fetch(`http://localhost:4444/api/applicants?jobId=6630acd0c4062b31b84ffa36&desc=dateOfApplication`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${t}`,
-        },
-        body: JSON.stringify(statusObj)
-      })
-        .then((y) => y.json())
-        .then((y) => {
-          console.log(y);
+    //   fetch(`http://localhost:4444/api/applicants?jobId=6630acd0c4062b31b84ffa36&desc=dateOfApplication`, {
+    //     method: "PUT",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Bearer ${t}`,
+    //     },
+    //     body: JSON.stringify(statusObj)
+    //   })
+    //     .then((y) => y.json())
+    //     .then((y) => {
+    //       console.log(y);
 
-        });
+    //     });
 
 
-      console.log(statusObj.status);
-    }
+    //   console.log(statusObj.status);
+    // }
 
 
 

@@ -1,11 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Job Portal-Applicant Jobs</title>
+    <script src="https://kit.fontawesome.com/52ca9e0df4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    
+
+<body onload="myJobs()">
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html"><img src="image/Asset 2@4x-8.png" alt="" id="img"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link " aria-current="page" href="index.html">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="ApplicantJobs.html">JOBS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="ApplicantsApplication.html">APPLICATIONS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="ApplicantProfile.html">PROFILE</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">LOGOUT</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div id="display"></div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script>
+        let a = [];
+        let t = JSON.parse(localStorage.getItem("token")).token;
+        const myJobs = () => {
+
+            fetch("http://localhost:4444/api/applications", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${t}`,
+                },
+            })
+                .then((y) => y.json())
+                .then((y) => {
+                    a = y;
+                    console.log(y)
+                    display(a);
+                });
+        };
+
+        const display = (jobs) => {
+            let d = jobs.map(function (value) {
+                return `
+            <form id="display">
+              <h3 id="jobTitle">${value.job.title}</h3>
+              <p>Role: ${value.job.jobType}</p>
+              <p>Salary: ${value.job.salary}</p>
+              <p>Duration: ${value.job.duration} Months</p>
+              <p>Date of Posting: ${value.job.dateOfPosting}</p>
+              <p>Number of Applicants: ${value.job.maxApplicants}</p>
+              <p>Number of Positions: ${value.job.maxPositions}</p>
+              <button type="button" class="btn btn-outline-primary">${value.status}</button>
+              </form>
+          `;
+            });
+            document.getElementById("display").innerHTML = d.join(" ");
+        };
+
+
+
+
+    </script>
+
 </body>
+
 </html>

@@ -106,10 +106,11 @@
             </div>
             <div class="row mb-3">
               <div class="col-sm-3">
-                <label for="maxSal" class="col-form-label mt-2">Salary</label>
+                <label class="col-form-label mt-2">Salary</label>
               </div>
               <div class="col-sm-9">
-                <input type="number" id="maxSal">
+                <input type="number" id="minSal" name="minSal" min="0" max="100000" placeholder="min salary">
+                <input type="number" id="maxSal" name="maxSal" min="0" max="100000" placeholder="max salary">
               </div>
             </div>
             <div class="row mb-3">
@@ -118,9 +119,13 @@
               </div>
               <div class="col-sm-9">
                 <select name="duration" id="duration">
+                  <option selected disabled value="">Select</option>
                   <option value="1">1 Year</option>
                   <option value="2">2 Years</option>
                   <option value="3">3 Years</option>
+                  <option value="4">4 Years</option>
+                  <option value="5">5 Years</option>
+                  <option value="6">6 Years</option>
                 </select>
               </div>
             </div>
@@ -352,7 +357,6 @@
     let obj1 = {}
     const viewApplicants = (index) => {
 
-
       let a = jobData[index];
       obj1 = a;
 
@@ -364,41 +368,54 @@
     const filterData = (e) => {
       e.preventDefault();
 
-      let baseUrl = "http://localhost:4444/api/jobs?myjobs=1&";
-      let jobType1 = document.getElementById('Full%20Time')
-      let jobType2 = document.getElementById('Part%20Time')
-      let jobType3 = document.getElementById('Work%20From%20Home')
-      let maxSal = document.getElementById('maxSal').value
-      let duration = document.getElementById('duration').value
+      let baseUrl = "http://localhost:4444/api/jobs?";
+      const jobType1 = document.getElementById('Full%20Time')
+      const jobType2 = document.getElementById('Part%20Time')
+      const jobType3 = document.getElementById('Work%20From%20Home')
 
-      if (jobType1.checked) {
-        baseUrl += ("jobType=" + jobType1.value + "&")
-      }
-      if (jobType2.checked) {
-        baseUrl += ("jobType=" + jobType2.value + "&")
-      }
-      if (jobType3.checked) {
-        baseUrl += ("jobType=" + jobType3.value + "&")
-      }
-      if (maxSal > 0) {
-        baseUrl += ("salaryMax=" + maxSal + "&")
-        console.log(baseUrl);
-      }
-      if (duration > 0) {
-        baseUrl += ("duration=" + duration)
+      const jobTypes = [jobType1, jobType2, jobType3];
+      const checkedJobTypes = jobTypes.filter(jobType => jobType.checked);
+
+      if (checkedJobTypes.length === 1) {
+        baseUrl += `jobType=${checkedJobTypes[0].value}`;
+      } else if (checkedJobTypes.length > 1) {
+        baseUrl += checkedJobTypes.map(jobType => `jobType=${jobType.value}`).join('&');
       }
 
-      fetch(`${baseUrl}`, {
+      // console.log(baseUrl)
+
+      // code for filter salary
+      const minsalary = document.getElementById("minSal").value;
+      const maxsalary = document.getElementById("maxSal").value;
+
+      if (minsalary && maxsalary) {
+        baseUrl += `&salaryMin=${minsalary}&salaryMax=${maxsalary}`;
+      }
+
+      // console.log(baseUrl);
+
+      // code for filter duration
+      const duration = document.getElementById("duration")
+
+      if (duration.value) {
+
+        baseUrl += `&duration=${duration.value}&`
+      }
+      // console.log(baseUrl);
+
+      fetch(baseUrl, {
         method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${t}`
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${t}`,
         },
       })
-        .then(y => y.json())
-        .then(y => {
+        .then((y) => y.json())
+        .then((y) => {
           display(y);
-        })
+
+          console.log(y)
+        });
     }
 
 

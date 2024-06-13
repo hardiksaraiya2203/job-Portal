@@ -82,47 +82,21 @@
                                         </div>
                                         <div class="col-12 text-center mt-3 mt-sm-4">
                                             <button class="btn btn-primary w-100" type="button"
-                                                onclick="addMoreEducation()">ADD ANOTHER INTITUTION
-                                                DETAILS</button>
+                                                onclick="addMoreEducation()">ADD INTITUTION</button>
+                                            <button class="btn btn-primary w-50" type="submit" onclick="getEduDetails(event)">
+                                                Save Details</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="col-12 text-center mt-3 mt-sm-4">
-                                <button class="btn btn-primary w-100" type="submit">ADD ANOTHER INTITUTION
-                                    DETAILS</button>
-                            </div> -->
+
                             <div class="mar" id="skills-heading">
                                 <label for="skill">Skills</label>
-                                <input type="text" name="Skills" id="skill">
-                                <!-- <p>Please enter to add skills</p> -->
+                                <input type="text" name="skill" id="skill">
                             </div>
-                            <!-- Upload file
-                            <div class="row inst">
-
-                                <div class="col-3 mar">
-
-                                    <input type="file" name="File" class="choose" title="Add a File">
-                                </div>
-                                <div class="col-6 mar">
-                                    <input type="text" name="FileName">
-                                </div>
-                                <div class="col-3 mar">
-                                    <button class="Upload" type="submit" name="Upload" value="">Submit</button>
-                                </div>
-                            </div>
-                            <div class="row inst">
-
-                                <div class="col-3 mar">
-
-                                    <input type="file" name="File" class="choose" title="Add a File">
-                                </div>
-                                <div class="col-6 mar">
-                                    <input type="text" name="FileName">
-                                </div> -->
                             <div class="col-12 text-center mt-3 mt-sm-4">
-                                <button class="btn btn-primary w-100" type="submit"
-                                    onclick="signUp(event)" id="butn">SIGNUP</button>
+                                <button class="btn btn-primary w-100" type="submit" onclick="signUp(event)"
+                                    id="butn">SIGNUP</button>
                             </div>
                         </div>
                     </div>
@@ -138,31 +112,23 @@
 
     <script>
         let education = []
-        let skills = []
         let eduDetails = {}
-        const getEduDetails = () => {
+        const getEduDetails = (e) => {
             e.preventDefault();
             eduDetails = {
-                institute_name: document.getElementById("institute-name").value,
-                institute_start: document.getElementById("start-date").value,
-                institute_end: document.getElementById("end-date").value
+                institutionName: document.getElementById("institute-name").value,
+                startYear: document.getElementById("start-date").value,
+                endYear: document.getElementById("end-date").value
             }
             education.push(eduDetails)
             console.log(eduDetails);
 
-            let s = document.getElementById('skills').value;
-            skills.push(s)
-            console.log((s));
-            console.log((education));
         }
-
-        document.getElementById('butn').addEventListener('click',getEduDetails)
 
         const signUp = (e) => {
             e.preventDefault();
             let obj = {
 
-                // bio: document.getElementById('bio').value,
                 bio: '',
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
@@ -171,12 +137,8 @@
                 education: education,
                 profile: '',
                 resume: '',
-                contactNumber: document.getElementById('contact').value,
-                skills: skills,
+                skills: document.getElementById('skill').value,
             }
-
-
-
 
             fetch('http://localhost:4444/auth/signup', {
                 method: "POST",
@@ -187,7 +149,7 @@
             }).then(y => y.json()).then(y => {
                 if (y.type) {
                     alert('logged in successfully')
-                    // location.href = 'ApplicantLogin.html'
+                    location.href = 'login.html'
                 }
             })
 

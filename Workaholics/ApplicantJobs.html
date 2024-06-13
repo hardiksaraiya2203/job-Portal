@@ -109,7 +109,10 @@
                                 <label for="maxSal" class="col-form-label mt-2">Salary</label>
                             </div>
                             <div class="col-sm-9">
-                                <input type="number" id="maxSal">
+                                <input type="number" id="minSal" name="minSal" min="0" max="100000"
+                                    placeholder="min salary">
+                                <input type="number" id="maxSal" name="maxSal" min="0" max="100000"
+                                    placeholder="max salary">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -118,9 +121,13 @@
                             </div>
                             <div class="col-sm-9">
                                 <select name="duration" id="duration">
+                                    <option selected disabled value="">Select</option>
                                     <option value="1">1 Year</option>
                                     <option value="2">2 Years</option>
                                     <option value="3">3 Years</option>
+                                    <option value="4">4 Years</option>
+                                    <option value="5">5 Years</option>
+                                    <option value="6">6 Years</option>
                                 </select>
                             </div>
                         </div>
@@ -242,7 +249,7 @@
         const ApplyJobs = (index) => {
             let b = jobData[index];
             // b[SOP] = document.getElementById('SOP').value;
-            // obj1 = b;
+            obj = b;
             let c = b._id
             const url = 'http://localhost:4444/api/jobs/' + c + '/applications';
             console.log(url);
@@ -261,6 +268,78 @@
                     // console.log(b);
                 });
         };
+
+        const Search = (e) => {
+            e.preventDefault();
+
+            let p = document.getElementById('SearchValue').value.toLowerCase();
+            fetch(`http://localhost:4444/api/jobs?myjobs=1&q=${p}`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${t}`
+                },
+            })
+                .then(y => y.json())
+                .then(y => {
+                    console.log(y)
+                    display(y);
+                })
+
+        }
+
+        const filterData = (e) => {
+            e.preventDefault();
+
+            let baseUrl = "http://localhost:4444/api/jobs?";
+            const jobType1 = document.getElementById('Full%20Time')
+            const jobType2 = document.getElementById('Part%20Time')
+            const jobType3 = document.getElementById('Work%20From%20Home')
+
+            const jobTypes = [jobType1, jobType2, jobType3];
+            const checkedJobTypes = jobTypes.filter(jobType => jobType.checked);
+
+            if (checkedJobTypes.length === 1) {
+                baseUrl += `jobType=${checkedJobTypes[0].value}`;
+            } else if (checkedJobTypes.length > 1) {
+                baseUrl += checkedJobTypes.map(jobType => `jobType=${jobType.value}`).join('&');
+            }
+
+            // console.log(baseUrl)
+
+            // code for filter salary
+            const minsalary = document.getElementById("minSal").value;
+            const maxsalary = document.getElementById("maxSal").value;
+
+            if (minsalary && maxsalary) {
+                baseUrl += `&salaryMin=${minsalary}&salaryMax=${maxsalary}`;
+            }
+
+            // console.log(baseUrl);
+
+            // code for filter duration
+            const duration = document.getElementById("duration")
+
+            if (duration.value) {
+
+                baseUrl += `&duration=${duration.value}&`
+            }
+            // console.log(baseUrl);
+
+            fetch(baseUrl, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${t}`,
+                },
+            })
+                .then((y) => y.json())
+                .then((y) => {
+                    display(y);
+
+                    console.log(y)
+                });
+        }
 
     </script>
 
